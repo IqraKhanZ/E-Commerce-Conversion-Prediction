@@ -4,7 +4,7 @@ This repository contains the complete machine learning pipeline, dataset files, 
 
 ---
 
-## 📌 Project Overview & Description
+## Project Overview & Description
 
 Online e-commerce platforms generate rich session and demographic data that can be leveraged to predict user conversion. The objective of this project is to build an accurate binary classification model predicting whether a user will convert (`Converted = 1`) or not (`Converted = 0`) during an e-commerce session.
 
@@ -17,7 +17,7 @@ Online e-commerce platforms generate rich session and demographic data that can 
 
 ---
 
-## 📊 Dataset Information
+## Dataset Information
 
 The datasets used in this project are included directly in this repository:
 
@@ -34,7 +34,7 @@ The datasets used in this project are included directly in this repository:
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 * **Programming Language**: Python (3.9+)
 * **Machine Learning & Modeling**: [CatBoost](https://catboost.ai/), [Scikit-Learn](https://scikit-learn.org/), [LightGBM](https://lightgbm.readthedocs.io/), [XGBoost](https://xgboost.readthedocs.io/)
@@ -44,7 +44,7 @@ The datasets used in this project are included directly in this repository:
 
 ---
 
-## 💡 Feature Engineering Highlights
+## Feature Engineering Highlights
 
 1. **Browsing Ratios**: Browsing intensity ratios such as `Pages_Per_Product`, `Time_Per_Page`, and `Time_Per_Product`.
 2. **Composite Engagement Score**: Multiplicative session depth indicator: `Pages_Viewed * Products_Viewed * (Time_On_Site + 1)`.
@@ -55,26 +55,24 @@ The datasets used in this project are included directly in this repository:
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 ├── IqraKhan_ECommerceConversionPrediction.ipynb  # Primary code notebook (named per submission format)
-├── notebook.ipynb                                # Standard Jupyter Notebook pipeline
 ├── IqraKhan_ProjectReport.docx                   # Complete project documentation (.docx)
-├── IqraKhan_ECommerceConversionPrediction_Report.docx # Formatted project report (.docx)
-├── report.pdf                                    # One-page technical PDF report
-├── submission.csv                                # Final predictions for private_test.csv
 ├── requirements.txt                              # Required Python libraries
 ├── train.csv                                     # 10,000 training records
 ├── public_test.csv                               # 3,000 validation records
 ├── private_test.csv                              # 3,000 test records
+├── submission.csv                                # Final predictions for private_test.csv
+├── report.pdf                                    # One-page technical PDF report
 ├── README.md                                     # Project overview and instructions
 └── .gitignore                                    # Git configuration file
 ```
 
 ---
 
-## 🚀 Setup & Execution Instructions
+## Setup & Execution Instructions
 
 ### 1. Clone the Repository
 ```bash
@@ -106,7 +104,7 @@ The notebook executes the end-to-end pipeline: data preprocessing, feature engin
 
 ---
 
-## 📈 Model Performance Summary
+## Model Performance Summary
 
 | Model | Decision Threshold | F1-Score | Precision | Recall | Accuracy |
 | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -118,6 +116,6 @@ The notebook executes the end-to-end pipeline: data preprocessing, feature engin
 
 ---
 
-## 👤 Author
+## Author
 
 * **Iqra Khan** — [GitHub Profile](https://github.com/IqraKhanZ)

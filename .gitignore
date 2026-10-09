@@ -37,3 +37,7 @@ scratch/
 *.json
 *.py
 !verify.py
+
+# Local duplicate files (kept on local disk only)
+notebook.ipynb
+IqraKhan_ECommerceConversionPrediction_Report.docx
