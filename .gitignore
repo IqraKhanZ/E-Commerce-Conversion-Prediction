@@ -37,4 +37,3 @@ scratch/
 *.json
 *.py
 !verify.py
-SA2026_Starter_Notebook.ipynb

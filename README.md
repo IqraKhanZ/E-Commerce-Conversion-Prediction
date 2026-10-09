@@ -1,57 +1,123 @@
-# E-Commerce Conversion Prediction Challenge (Summer Analytics 2026)
+# E-Commerce Conversion Prediction Challenge
 
-This repository contains the final machine learning pipeline, predictions, and report for the E-Commerce Conversion Prediction Challenge. The goal of this challenge is to predict whether a customer will convert (binary target `Converted`) during their e-commerce session.
+This repository contains the complete machine learning pipeline, dataset files, trained ensemble model, technical project report, and predictions for the **E-Commerce Conversion Prediction Challenge**.
 
-## Project Overview
+---
 
-- **Objective**: Maximize the classification F1-Score on unseen customer sessions.
-- **Model**: Stratified 5-Fold CatBoost Classifier Ensemble.
-- **Optimal Decision Threshold**: `0.24` (tuned Out-of-Fold to handle class imbalance).
-- **Validation F1-Score**: `0.5626` (a ~43.4% relative improvement over the default 0.50 threshold F1 of 0.3923).
-- **Predictions**: 1,668 predicted conversions out of 3,000 test sessions (55.6% conversion rate).
+## 📌 Project Overview & Description
 
-## Repository Contents
+Online e-commerce platforms generate rich session and demographic data that can be leveraged to predict user conversion. The objective of this project is to build an accurate binary classification model predicting whether a user will convert (`Converted = 1`) or not (`Converted = 0`) during an e-commerce session.
 
-* **`notebook.ipynb`**: A clean, fully reproducible Jupyter Notebook containing the data loading, feature engineering, cross-validation, hyperparameter choices, decision threshold optimization, and final test set predictions.
-* **`submission.csv`**: The final predictions for the 3,000 private test samples in the required `User_ID` and `Converted` format.
-* **`report.pdf`**: A clean, one-page technical summary of the methodology, key exploratory insights, feature engineering choices, and results.
-* **`train.csv`**: Training dataset of 10,000 rows.
-* **`public_test.csv`**: Public test/validation set of 3,000 rows (used during training & threshold selection).
-* **`private_test.csv`**: Private test dataset of 3,000 rows for generating the final predictions.
-* **`requirements.txt`**: List of Python packages required to run the notebook.
-* **`.gitignore`**: Git configuration to exclude temporary files and python caches.
+- **Target Variable**: `Converted` (Binary: `0` = No Conversion, `1` = Conversion)
+- **Primary Optimization Metric**: **F1-Score**
+- **Core Modeling Technique**: Stratified 5-Fold **CatBoost Classifier Ensemble**
+- **Decision Threshold Optimization**: Calibrated decision threshold at `0.24`
+- **Final Validation F1-Score**: **0.5626** (a **+43.4% relative gain** over baseline Logistic Regression F1 of `0.3923`)
+- **Test Predictions**: 1,668 predicted conversions out of 3,000 private test sessions (`55.6%` conversion rate)
 
-## Feature Engineering Highlights
+---
 
-We engineered specific behavioral and interaction features to capture session depth, demographic purchasing power, and responses to promotions:
-1. **Ratio Features**: Browsing intensity ratios, such as `Pages_Per_Product`, `Time_Per_Page`, and `Time_Per_Product`.
-2. **Engagement Score**: Session depth metric calculated as `Pages_Viewed * Products_Viewed * (Time_On_Site + 1)`.
-3. **Demographic & Discount Interactions**: Capturing purchasing power (`Income_Age_Prod`, `Income_Age_Ratio`) and discount sensitivity (`Discount_Purchases`, `Discount_Income`).
-4. **Missing Value Flags**: Informative binary flags (`Age_is_missing`, `Income_is_missing`, `Time_On_Site_is_missing`) to capture session/user engagement cues since missingness strongly correlated with non-conversion.
-5. **High-Cardinality Encoding**: Frequency-based encoding of `Campaign_Code` (6,014 unique values) using the full population count, capturing campaign size without introducing target leakage.
+## 📊 Dataset Information
 
-## How to Setup and Run
+The datasets used in this project are included directly in this repository:
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/IqraKhanZ/E-Commerce-Conversion-Prediction.git
-   cd E-Commerce-Conversion-Prediction
-   ```
+| Dataset File | Samples | Description |
+| :--- | :--- | :--- |
+| **[`train.csv`](train.csv)** | 10,000 | Training set containing customer demographic, browsing, and session records with target label `Converted`. |
+| **[`public_test.csv`](public_test.csv)** | 3,000 | Validation set used for cross-validation and decision threshold tuning. |
+| **[`private_test.csv`](private_test.csv)** | 3,000 | Unlabeled test set evaluated to produce the final competition submission. |
 
-2. **Install Dependencies**:
-   It is recommended to use a virtual environment:
-   ```bash
-   python -m venv env
-   # On Windows:
-   env\Scripts\activate
-   # On macOS/Linux:
-   source env/bin/activate
+### Key Features
+* **Browsing Behavior**: `Pages_Viewed`, `Products_Viewed`, `Time_On_Site`
+* **Promotions & History**: `Discount_Seen`, `Previous_Purchases`, `Campaign_Code`
+* **User Demographics & Tech**: `Age`, `Income`, `City_Tier`, `Device_Type`, `Traffic_Source`, `Browser_Version`
 
-   pip install -r requirements.txt
-   ```
+---
 
-3. **Run the Notebook**:
-   Open Jupyter Notebook or JupyterLab and execute all cells in `notebook.ipynb` to reproduce the model training, threshold tuning, and predictions:
-   ```bash
-   jupyter notebook notebook.ipynb
-   ```
+## 🛠️ Technologies Used
+
+* **Programming Language**: Python (3.9+)
+* **Machine Learning & Modeling**: [CatBoost](https://catboost.ai/), [Scikit-Learn](https://scikit-learn.org/), [LightGBM](https://lightgbm.readthedocs.io/), [XGBoost](https://xgboost.readthedocs.io/)
+* **Data Processing & Scientific Computing**: [Pandas](https://pandas.pydata.org/), [NumPy](https://numpy.org/)
+* **Interactive Environment**: [Jupyter Notebook / IPython](https://jupyter.org/)
+* **Documentation & Reporting**: [python-docx](https://python-docx.readthedocs.io/), [ReportLab](https://www.reportlab.com/)
+
+---
+
+## 💡 Feature Engineering Highlights
+
+1. **Browsing Ratios**: Browsing intensity ratios such as `Pages_Per_Product`, `Time_Per_Page`, and `Time_Per_Product`.
+2. **Composite Engagement Score**: Multiplicative session depth indicator: `Pages_Viewed * Products_Viewed * (Time_On_Site + 1)`.
+3. **Demographic Purchasing Power**: Interaction terms combining income and age (`Income_Age_Prod`, `Income_Age_Ratio`).
+4. **Promotion Sensitivity**: Interaction terms between discounts and past loyalty (`Discount_Purchases`, `Discount_Income`).
+5. **Informative Missingness Indicators**: Binary indicator flags (`Age_is_missing`, `Income_is_missing`, `Time_On_Site_is_missing`) preserving the predictive signal that missing attributes correlate with lower conversion rates.
+6. **Frequency Encoding**: Encoding high-cardinality `Campaign_Code` (6,014 unique categories) using population occurrence frequencies to eliminate data leakage and avoid overfitting.
+
+---
+
+## 📁 Repository Structure
+
+```
+├── IqraKhan_ECommerceConversionPrediction.ipynb  # Primary code notebook (named per submission format)
+├── notebook.ipynb                                # Standard Jupyter Notebook pipeline
+├── IqraKhan_ProjectReport.docx                   # Complete project documentation (.docx)
+├── IqraKhan_ECommerceConversionPrediction_Report.docx # Formatted project report (.docx)
+├── report.pdf                                    # One-page technical PDF report
+├── submission.csv                                # Final predictions for private_test.csv
+├── requirements.txt                              # Required Python libraries
+├── train.csv                                     # 10,000 training records
+├── public_test.csv                               # 3,000 validation records
+├── private_test.csv                              # 3,000 test records
+├── README.md                                     # Project overview and instructions
+└── .gitignore                                    # Git configuration file
+```
+
+---
+
+## 🚀 Setup & Execution Instructions
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/IqraKhanZ/E-Commerce-Conversion-Prediction.git
+cd E-Commerce-Conversion-Prediction
+```
+
+### 2. Set Up Virtual Environment & Install Dependencies
+```bash
+# Create virtual environment
+python -m venv env
+
+# Activate virtual environment
+# Windows:
+env\Scripts\activate
+# macOS / Linux:
+source env/bin/activate
+
+# Install requirements
+pip install -r requirements.txt
+```
+
+### 3. Run the Jupyter Notebook
+Launch Jupyter Notebook and execute all cells in sequence:
+```bash
+jupyter notebook IqraKhan_ECommerceConversionPrediction.ipynb
+```
+The notebook executes the end-to-end pipeline: data preprocessing, feature engineering, 5-fold CatBoost training, out-of-fold threshold calibration, and generates `submission.csv`.
+
+---
+
+## 📈 Model Performance Summary
+
+| Model | Decision Threshold | F1-Score | Precision | Recall | Accuracy |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| Baseline Logistic Regression | 0.50 | 0.3923 | 0.5050 | 0.3210 | 0.6975 |
+| XGBoost Classifier | 0.28 | 0.5288 | 0.4120 | 0.7360 | 0.6120 |
+| Random Forest Classifier | 0.28 | 0.5476 | 0.4150 | 0.8047 | 0.6073 |
+| LightGBM Classifier | 0.27 | 0.5550 | 0.4421 | 0.7453 | 0.6347 |
+| **CatBoost Ensemble (Final)** | **0.24** | **0.5626** | **0.4320** | **0.8064** | **0.6168** |
+
+---
+
+## 👤 Author
+
+* **Iqra Khan** — [GitHub Profile](https://github.com/IqraKhanZ)
