@@ -19,13 +19,17 @@ Online e-commerce platforms generate rich session and demographic data that can 
 
 ## Dataset Information
 
-The datasets used in this project are included directly in this repository:
+The datasets used in this project are hosted and available directly in this repository:
 
-| Dataset File | Samples | Description |
-| :--- | :--- | :--- |
-| **[`train.csv`](train.csv)** | 10,000 | Training set containing customer demographic, browsing, and session records with target label `Converted`. |
-| **[`public_test.csv`](public_test.csv)** | 3,000 | Validation set used for cross-validation and decision threshold tuning. |
-| **[`private_test.csv`](private_test.csv)** | 3,000 | Unlabeled test set evaluated to produce the final competition submission. |
+* **Training Dataset**: [`train.csv`](https://github.com/IqraKhanZ/E-Commerce-Conversion-Prediction/blob/main/train.csv) (10,000 records)
+* **Public Validation Dataset**: [`public_test.csv`](https://github.com/IqraKhanZ/E-Commerce-Conversion-Prediction/blob/main/public_test.csv) (3,000 records)
+* **Private Test Dataset**: [`private_test.csv`](https://github.com/IqraKhanZ/E-Commerce-Conversion-Prediction/blob/main/private_test.csv) (3,000 records)
+
+| Dataset File | Samples | Direct Link | Description |
+| :--- | :--- | :--- | :--- |
+| `train.csv` | 10,000 | [View train.csv](https://github.com/IqraKhanZ/E-Commerce-Conversion-Prediction/blob/main/train.csv) | Training set containing demographic, browsing, and session records with target label `Converted`. |
+| `public_test.csv` | 3,000 | [View public_test.csv](https://github.com/IqraKhanZ/E-Commerce-Conversion-Prediction/blob/main/public_test.csv) | Validation set used for cross-validation and decision threshold tuning. |
+| `private_test.csv` | 3,000 | [View private_test.csv](https://github.com/IqraKhanZ/E-Commerce-Conversion-Prediction/blob/main/private_test.csv) | Unlabeled test set evaluated to produce the final competition submission. |
 
 ### Key Features
 * **Browsing Behavior**: `Pages_Viewed`, `Products_Viewed`, `Time_On_Site`
